@@ -62,6 +62,16 @@ public class Profile extends AppCompatActivity {
                 .build();
         //init signin client
         googleSignInClient = GoogleSignIn.getClient(Profile.this, gso);
+        //firebase
+        mAuth = FirebaseAuth.getInstance();
+        //init firebase user
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        //check condition
+        if (firebaseUser != null){
+            //when user already sign in
+            //redirect to profileview
+            startActivity(new Intent(Profile.this, ProfileView.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        }
         //google login onclick listener
         login_google.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,17 +83,6 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-
-        //firebase
-        mAuth = FirebaseAuth.getInstance();
-        //init firebase user
-        FirebaseUser firebaseUser = mAuth.getCurrentUser();
-        //check condition
-        if (firebaseUser != null){
-            //when user already sign in
-            //redirect to profileview
-            startActivity(new Intent(Profile.this, ProfileView.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        }
 
 
         //regular onclick listener
@@ -116,6 +115,8 @@ public class Profile extends AppCompatActivity {
                                 } else {
                                     //if login success, switch to ProfileView activity
                                     Toast.makeText(Profile.this, "Yay!", Toast.LENGTH_SHORT).show();
+                                    //Intent intent = new Intent(Profile.this, ProfileView.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    //intent.putExtra("")
                                     startActivity(new Intent(Profile.this, ProfileView.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                                 }
                             }
@@ -127,7 +128,6 @@ public class Profile extends AppCompatActivity {
 
             }
         });
-        //check if user is currently signin
         //init bottom view
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         //Set Home Select
