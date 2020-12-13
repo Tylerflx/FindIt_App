@@ -21,7 +21,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/job_title"
         android:layout_width="334dp"
         android:layout_height="39dp"
         android:layout_marginStart="10dp"
@@ -48,10 +48,10 @@
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/job_title" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/location"
         android:layout_width="280dp"
         android:layout_height="39dp"
         android:layout_marginStart="10dp"
@@ -64,7 +64,7 @@
         app:layout_constraintTop_toBottomOf="@+id/home_text2" />
 
     <Button
-        android:id="@+id/search_btn"
+        android:id="@+id/findit"
         android:layout_width="347dp"
         android:layout_height="59dp"
         android:layout_marginStart="165dp"
@@ -77,7 +77,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+        app:layout_constraintTop_toBottomOf="@+id/location" />
 
     <ImageView
         android:id="@+id/imageView8"
@@ -113,7 +113,7 @@
         android:background="#86E1DEDE"
         android:src="@drawable/ic_baseline_my_location_24"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName2"
+        app:layout_constraintStart_toEndOf="@+id/location"
         app:layout_constraintTop_toBottomOf="@+id/home_des2" />
 
     <TextView
@@ -125,7 +125,7 @@
         android:layout_marginTop="24dp"
         android:text="City, State"
         app:layout_constraintStart_toEndOf="@+id/home_text2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/job_title" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

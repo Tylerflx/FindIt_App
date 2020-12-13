@@ -30,8 +30,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-
-
 public class Profile extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private TextView signup;
@@ -40,10 +38,8 @@ public class Profile extends AppCompatActivity {
     private EditText email_id, pass_id;
     private static final int RC_SIGN_IN = 9001;
     private static final String TAG = "GoogleActivity";
-
     private GoogleSignInClient googleSignInClient;
     private GoogleSignInAccount googleSignInAccount;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +53,7 @@ public class Profile extends AppCompatActivity {
         login_google = (ImageView) findViewById(R.id.google);
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                //token from gradle signin report
                 .requestIdToken("317165485211-rsqso8qfhspshcv9jeqmqi0m43ume42s.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
@@ -82,9 +79,6 @@ public class Profile extends AppCompatActivity {
                 startActivityForResult(intent, 100);
             }
         });
-
-
-
         //regular onclick listener
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,7 +126,6 @@ public class Profile extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         //Set Home Select
         bottomNavigationView.setSelectedItemId(R.id.profile);
-
         //Perform Item Selected List
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

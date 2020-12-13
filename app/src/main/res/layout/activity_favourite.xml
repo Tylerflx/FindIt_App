@@ -25,7 +25,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fav_list"
+        android:id="@+id/result_view"
         android:layout_width="406dp"
         android:layout_height="610dp"
         android:layout_marginEnd="4dp"
