@@ -21,6 +21,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ProfileView extends AppCompatActivity {
     TextView tvName;
@@ -30,10 +34,37 @@ public class ProfileView extends AppCompatActivity {
     GoogleSignInClient googleSignInClient;
 
 
+    //add user to database
+    Users member;
+    String currentUserId;
+    String currentUserEmail;
+    //private UploadTask uploadTask;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    DocumentReference documentReference;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view);
+
+        //user
+        member = new Users();
+        //set up firebase user
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        currentUserId = user.getUid();
+        currentUserEmail = user.getEmail();
+        documentReference = db.collection("user").document(currentUserId);
+        //database reference
+        databaseReference = database.getReference("Users");
+        //add user into database
+        member.setEmail(currentUserEmail);
+        member.setUid(currentUserId);
+        //member.setPass(pass);
+        databaseReference.child(currentUserId).setValue(member);
+
 
         //Assign variable
         ivImage = findViewById(R.id.iv_image);
@@ -44,6 +75,11 @@ public class ProfileView extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         //Init firebase user
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        String uid = firebaseUser.getUid();
+
+        //display user uid
+        Toast.makeText(getApplicationContext(), "User uid: " + uid, Toast.LENGTH_SHORT).show();
+
         //check condition
         if (firebaseUser != null){
             //when firebaseuser is not null

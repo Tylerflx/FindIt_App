@@ -49,6 +49,8 @@ public class Profile extends AppCompatActivity {
         email_id = (EditText) findViewById(R.id.login_email);
         pass_id = (EditText) findViewById(R.id.login_pwd);
         signup = (TextView) findViewById(R.id.signup_text);
+        // if signup button on click, switch to signup page
+
         login = (Button) findViewById(R.id.login_btn);
         login_google = (ImageView) findViewById(R.id.google);
         // Configure Google Sign In
@@ -149,6 +151,13 @@ public class Profile extends AppCompatActivity {
                 return false;
             }
         });
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Profile.this, Signup.class);
+                startActivity(intent);
+            }
+        });
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -190,7 +199,7 @@ public class Profile extends AppCompatActivity {
             }
             }
         }
-    private void displayToast(String s){
+    public void displayToast(String s){
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
     }
 }
