@@ -150,54 +150,52 @@ public class MainActivity extends AppCompatActivity {
         //init fused location
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            getLocation(title);
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                @Override
+                public void onComplete(@NonNull Task<Location> task) {
+                    //init location
+                    Location location = task.getResult();
+                    if (location != null) {
+                        try {
+                            //init geocoder
+                            Geocoder geocoder = new Geocoder(MainActivity.this, Locale.getDefault());
+                            //init address list
+                            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                            //get lat from the address list
+                            lat = addresses.get(0).getLatitude();
+                            //format it as 2 decimals
+                            String s_lat = format("%.2f",lat);
+                            //get lon from address list
+                            lon = addresses.get(0).getLongitude();
+                            //format
+                            String s_lon = format("%.2f",lon);
+                            //call dashboard activity
+                            Intent intent = new Intent(MainActivity.this, Dashboard.class);
+                            //passing variable to display activity
+                            intent.putExtra("jobTitle",title);
+                            intent.putExtra("lat_tude", s_lat );
+                            intent.putExtra("lon_gitude",s_lon);
+                            //call
+                            startActivity(intent);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
         } else {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
         }
 
-    }
-
-    public void getLocation(String title) {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-            @Override
-            public void onComplete(@NonNull Task<Location> task) {
-                //init location
-                Location location = task.getResult();
-                if (location != null) {
-                    try {
-                        //init geocoder
-                        Geocoder geocoder = new Geocoder(MainActivity.this, Locale.getDefault());
-                        //init address list
-                        List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                        lat = addresses.get(0).getLatitude();
-                        String s_lat = format("%.2f",lat);
-                        lon = addresses.get(0).getLongitude();
-                        String s_lon = format("%.2f",lon);
-                        Toast.makeText(getApplicationContext(), "Your Location is - \nLat: "
-                                + lat + "\nLong: " + lon, Toast.LENGTH_LONG).show();
-                        //call intent
-                        Intent intent = new Intent(MainActivity.this, Dashboard.class);
-                        //passing variable to display activity
-                        intent.putExtra("jobTitle",title);
-                        intent.putExtra("lat_tude", s_lat );
-                        intent.putExtra("lon_gitude",s_lon);
-                        //call
-                        startActivity(intent);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
     }
 }

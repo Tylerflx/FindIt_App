@@ -40,8 +40,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         this.jobs = jobs;
         this.context=ctx;
     }
-    @NonNull
-    //assign layout
 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

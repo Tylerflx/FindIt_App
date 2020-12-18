@@ -78,7 +78,7 @@ public class ProfileView extends AppCompatActivity {
         String uid = firebaseUser.getUid();
 
         //display user uid
-        Toast.makeText(getApplicationContext(), "User uid: " + uid, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "User uid: " + uid, Toast.LENGTH_SHORT).show();
 
         //check condition
         if (firebaseUser != null){

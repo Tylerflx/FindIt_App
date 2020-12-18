@@ -166,7 +166,6 @@ public class Profile extends AppCompatActivity {
         if (requestCode == 100) {
             Task<GoogleSignInAccount> signInAccountTask = GoogleSignIn.getSignedInAccountFromIntent(data);
             if (signInAccountTask.isSuccessful()) {
-                displayToast("Google SignIn Successful");
                 try {
                     GoogleSignInAccount googleSignInAccount = signInAccountTask.getResult(ApiException.class);
                     //check condition
@@ -178,11 +177,10 @@ public class Profile extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     //when task is successful
+                                    //display toast
                                     //redirect to profileview
+                                    displayToast("Google SignIn Successful");
                                     startActivity(new Intent(Profile.this, ProfileView.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                                    //Display Toast
-                                    displayToast("Firebase authencation successful");
-
                                 } else {
                                     //when not successful
                                     //display toast

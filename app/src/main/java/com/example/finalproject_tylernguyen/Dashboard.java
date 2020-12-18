@@ -49,22 +49,25 @@ public class Dashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        //declare recyclerview
+        //get current user uid
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        assert user != null;
-        String currentUserid = user.getUid();
-        databaseReference = database.getReference("Users");
-        fvrt_listRef = database.getReference("FavoriteList").child(currentUserid);
+        if (user != null){
+            String currentUserid = user.getUid();
+            databaseReference = database.getReference("Users");
+            fvrt_listRef = database.getReference("FavoriteList").child(currentUserid);
+        }
+
+        //set up recyclerview
         recyclerView = findViewById(R.id.result_view);
+        //declare new array list
         jobs = new ArrayList<>();
         search_title = (TextView) findViewById(R.id.jobTitle_box);
-        if( getIntent().getExtras() != null){
+        if(getIntent().getExtras() != null){
             //if the data passed from the main activity is not null
             //then get that data and assign to variables
             String inp_job = getIntent().getStringExtra("jobTitle");
             String inp_loc = getIntent().getStringExtra("jobLoc");
             Toast.makeText(Dashboard.this,inp_job + inp_loc, Toast.LENGTH_SHORT).show();
-
             //specify the url
             if (inp_loc != null){
                 //if job tittle and job location is available
@@ -158,8 +161,11 @@ public class Dashboard extends AppCompatActivity {
                 //after retrieving data
                 //dismiss loading dialog
                 loading.dismiss();
+                //set recyclerview
                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                //call adapter class
                 adapter = new Adapter(Dashboard.this, jobs);
+                //set the adapter to recyclerview
                 recyclerView.setAdapter(adapter);
                 //getjob(jobs);
             }
