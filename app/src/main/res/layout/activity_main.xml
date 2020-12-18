@@ -111,6 +111,7 @@
         android:layout_marginEnd="23dp"
         android:layout_marginRight="23dp"
         android:background="#86E1DEDE"
+        android:onClick="current_loc"
         android:src="@drawable/ic_baseline_my_location_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/location"
