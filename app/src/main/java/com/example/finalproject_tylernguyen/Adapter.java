@@ -1,14 +1,19 @@
 package com.example.finalproject_tylernguyen;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -25,16 +30,19 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
      }
     @NonNull
     //assign layout
+
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //using the cardview layout
+
         View v = inflater.inflate(R.layout.custom_result_layout, parent, false);
         return new ViewHolder(v);
     }
     //use view we created, assign data
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-         //bind the data
+        //bind the data
+        final String  name = jobs.get(position).getJob_title();
         //holder.fav.setImageDrawable(get);
         holder.job_title.setText(jobs.get(position).getJob_title());
         holder.job_type.setText(jobs.get(position).getPosition_type());
@@ -50,9 +58,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView job_title, job_type, job_location;
+        TextView job_title, job_type, job_location, job_id, job_url;
         ImageView company_logo;
         ImageButton fav;
+        DatabaseReference fav_list;
+        Job job;
+        ConstraintLayout parent_layout;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -61,7 +73,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             job_type = itemView.findViewById(R.id.positionTitle);
             job_location = itemView.findViewById(R.id.locationTitle);
             company_logo = itemView.findViewById(R.id.companyLogo);
-            fav = itemView.findViewById(R.id.fav_btn);
+            parent_layout = itemView.findViewById(R.id.relate);
+            fav = itemView.findViewById(R.id.fvrt_f2_item);
         }
+
     }
 }

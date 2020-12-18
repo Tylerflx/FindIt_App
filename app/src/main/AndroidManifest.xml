@@ -10,6 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalProject_TylerNguyen">
+        <activity android:name=".JobInfo"></activity>
         <activity android:name=".ProfileView" />
         <activity android:name=".Signup" />
         <activity android:name=".Profile" />
